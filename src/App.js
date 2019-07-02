@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Header from './Header';
 import ListOfFeatures from './ListOfFeatures';
 import Cart from './Cart';
 
@@ -36,13 +37,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header>
-          <h1>ELF Computing</h1>
-          <h3>Laptops</h3>
-          <h5>Customize your laptop</h5>
-        </header>
-
-        <main>
+        <Header />
+      <main>
          
           <ListOfFeatures features={this.props.features} handleChange={(feature, newValue) => this.updateFeature(feature, newValue)} selected={this.state.selected}/>
           <Cart selected={this.state.selected}/>
