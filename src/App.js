@@ -4,40 +4,58 @@ import ListOfFeatures from './ListOfFeatures';
 // import Cart from './Cart';
 
 class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       selected: {
         Processor: {
-            name: '17th Generation Intel Core HB (7 Core with donut spare)',
-            cost: 700
-          },
+          name: '17th Generation Intel Core HB (7 Core with donut spare)',
+          cost: 700
+        },
         "Operating System": {
-            name: 'Ubuntu Linux 16.04',
-            cost: 200
-          },
-        "Video Card":{
-            name: 'Toyota Corolla 1.5v',
-            cost: 1150.98
-          },
+          name: 'Ubuntu Linux 16.04',
+          cost: 200
+        },
+        "Video Card": {
+          name: 'Toyota Corolla 1.5v',
+          cost: 1150.98
+        },
         Display: {
-            name: '15.6" UHD (3840 x 2160) 60Hz Bright Lights and Knobs',
-            cost: 1500
-          }
+          name: '15.6" UHD (3840 x 2160) 60Hz Bright Lights and Knobs',
+          cost: 1500
+        }
       }
     }
   }
 
-  updateFeature(feature, newValue) {
-    const selected = Object.assign({}, this.state.selected);
-    selected[feature] = newValue;
-    this.setState({
-      selected
-    });
+  currentFeatureChoices = () => {
+    const currentFeatureChoices = [];
+    Object.keys(this.state.selected).map(key => {
+      return this.props.features[key].map(item => {
+        const selectedClass = item.name === this.state.selected[key].name ? item.name : '';
+        currentFeatureChoices.push(selectedClass);
+      })
+    })
+    return currentFeatureChoices;
   }
 
+  updateFeature(newValue) {
+    console.log(newValue)
+    let choices = this.currentFeatureChoices();
+   
+    
+    // const selected = Object.assign({}, this.state.selected);
+    // selected[feature] = newValue ;
+    // this.setState({
+    //   selected: selected,
+    // });
+
+  }
+
+
   render() {
-    console.log(this.props)
+   
+    
     // const summary = Object.keys(this.state.selected)
     //       .map(key => <div className="summary__option" key={key}>
     //         <div className="summary__option__label">{key}  </div>
@@ -59,7 +77,7 @@ class App extends Component {
     //           const featureClass = 'feature__option ' + selectedClass;
     //           // return <li key={index} className="feature__item">
     //           //   <div className={featureClass}
-                  
+
     //           //     onClick={e => this.updateFeature(key, item)}>
     //           //       { item.name }
     //           //       ({ new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD'})
@@ -82,27 +100,14 @@ class App extends Component {
         <header>
           <h1>ELF Computing</h1>
           <h3>Laptops</h3>
-          <h5>Customize your laptop</h5>  
-        </header>      
-        
+          <h5>Customize your laptop</h5>
+        </header>
+
         <main>
-          {/* <section className="main__form">
-            <h3>TECH SPECS AND CUSTOMIZATIONS</h3>
-            { features }
-          </section> */}
-         <ListOfFeatures features={this.props.features} />
-         {/* <Cart /> */}
-          {/* <section className="main__summary">
-            <h3>NEW GREENLEAF 2018</h3>
-            {summary}
-            <div className="summary__total">
-              <div className="summary__total__label">Your Price: </div>
-              <div className="summary__total__value">
-              { new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD'})
-                  .format(total) }
-              </div>
-            </div>
-          </section> */}
+         
+          <ListOfFeatures features={this.props.features} handleChange={this.updateFeature} currentChoices={this.currentFeatureChoices()}/>
+          {/* <Cart /> */}
+         
         </main>
       </div>
     );
