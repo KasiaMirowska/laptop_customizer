@@ -3,9 +3,8 @@ import React from 'react';
 
 export default function Item(props) {
     const item = props.item
-    const header = props.featureHeader;
+    const header = props.category;
     
-    console.log(typeof props.price ,'price from item')
     return(
         <li className="feature__item">
         <div className={props.featureClass}
